@@ -1,7 +1,7 @@
-import youtube_dl # client to download from many multimedia portals
+import youtube_dl 
 import glob # directory operations
-import os # interface to os-provided info on files
-import sys # interface to command line
+import os 
+import sys 
 from pydub import AudioSegment # only audio operations
 
 def newest_mp3_filename():
@@ -39,8 +39,6 @@ def get_trimmed(mp3_filename, initial, final = ""):
     return sound[t0:] # t0 up to the end
 
 
-
-# downloads yt_url to the same directory from which the script runs
 def download_audio(yt_url):
     ydl_opts = {
         'format': 'bestaudio/best',
