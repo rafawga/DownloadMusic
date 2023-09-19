@@ -1,13 +1,11 @@
 import youtube_dl 
-import glob # directory operations
+import glob 
 import os 
 import sys 
 from pydub import AudioSegment # only audio operations
 
 def newest_mp3_filename():
-    # lists all mp3s in local directory
     list_of_mp3s = glob.glob('./*.mp3')
-    # returns mp3 with highest timestamp value
     return max(list_of_mp3s, key = os.path.getctime)
 
 def get_video_time_in_ms(video_timestamp):
@@ -20,14 +18,11 @@ def get_video_time_in_ms(video_timestamp):
         hours = 0
         minutes = int(vt_split[0]) * 60 * 1000
         seconds = int(vt_split[1]) * 1000
-    # time point in miliseconds
     return hours + minutes + seconds
 
 def get_trimmed(mp3_filename, initial, final = ""):
     if (not mp3_filename):
-        # raise an error to immediately halt program execution
         raise Exception("No MP3 found in local directory.")
-    # reads mp3 as a PyDub object
     sound = AudioSegment.from_mp3(mp3_filename)
     t0 = get_video_time_in_ms(initial)
     print("Beginning trimming process for file ", mp3_filename, ".\n")
@@ -67,7 +62,6 @@ def main():
     trimmed_file = get_trimmed(filename, initial, final)
     trimmed_filename = "".join([filename.split(".mp3")[0], "- TRIM.mp3"])
     print("Process concluded successfully. Saving trimmed file as ", trimmed_filename)
-    # saves file with newer filename
     trimmed_file.export(trimmed_filename, format="mp3")
 
 # example usage:
